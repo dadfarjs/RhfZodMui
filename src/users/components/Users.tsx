@@ -1,18 +1,30 @@
-import { useForm } from "react-hook-form";
-import { Stack, TextField } from "@mui/material";
-import { SchemaType, schema } from "../types/schema";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Autocomplete, Stack, TextField } from "@mui/material";
+import { RHFAutocomplete } from "../../components/RHFAutocomplete";
+import { useFormContext } from "react-hook-form";
+import { Schema } from "../types/schema";
 
 const Users = () => {
-  const { register } = useForm<SchemaType>({
-    mode: "all",
-    resolver: zodResolver(schema),
-  });
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<Schema>();
 
   return (
-    <Stack>
-      <TextField label="name" {...register("name")} />
-      <TextField label="email" {...register("email")} />
+    <Stack sx={{ gap: 2 }}>
+      {/* Stack: <div style={{display: "flex", flexDirection: "column", gap: 2}}></div> */}
+      <TextField
+        label="Name"
+        {...register("name")}
+        error={!!errors.name}
+        helperText={errors.name?.message}
+      />
+      <TextField
+        label="Email"
+        {...register("email")}
+        error={!!errors.email}
+        helperText={errors.email?.message}
+      />
+      <RHFAutocomplete<Schema> name="email" />
     </Stack>
   );
 };
