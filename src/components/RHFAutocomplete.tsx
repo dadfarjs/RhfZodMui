@@ -24,17 +24,17 @@ export const RHFAutocomplete = <T extends FieldValues>({
       render={({ field: { value, onChange, ref }, fieldState: { error } }) => (
         <Autocomplete
           options={options}
-          value={value.map((id: string) =>
+          value={value?.map((id: string) =>
             options.find((item) => item.id === id)
           )}
           getOptionLabel={(option) =>
-            options.find((item) => item.id === option.id)?.label ?? ""
+            options?.find((item) => item.id === option.id)?.label ?? ""
           }
           isOptionEqualToValue={(options, newValue) =>
-            options.id === newValue.id
+            options?.id === newValue.id
           }
           onChange={(_, newValue) => {
-            onChange(newValue.map((item) => item.id));
+            onChange(newValue?.map((item) => item.id));
           }}
           disableCloseOnSelect
           multiple
@@ -49,12 +49,13 @@ export const RHFAutocomplete = <T extends FieldValues>({
             />
           )}
           renderOption={(props, option, { selected }) => (
-            <Box {...props}>
+            <Box component="li" {...props}>
               <Checkbox
                 icon={<CheckBoxOutlineBlankIcon />}
                 checkedIcon={<CheckBoxIcon />}
                 checked={selected}
               />
+              {option.label}c
             </Box>
           )}
         />

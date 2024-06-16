@@ -1,4 +1,4 @@
-import { Autocomplete, Stack, TextField } from "@mui/material";
+import { Stack, TextField } from "@mui/material";
 import { RHFAutocomplete } from "../../components/RHFAutocomplete";
 import { useFormContext } from "react-hook-form";
 import { Schema } from "../types/schema";
@@ -24,7 +24,20 @@ const Users = () => {
         error={!!errors.email}
         helperText={errors.email?.message}
       />
-      <RHFAutocomplete<Schema> name="email" />
+      <RHFAutocomplete<Schema>
+        name="states"
+        label="States"
+        options={[
+          {
+            id: "1",
+            label: "California",
+          },
+          {
+            id: "2",
+            label: "Texas",
+          },
+        ]}
+      />
     </Stack>
   );
 };
